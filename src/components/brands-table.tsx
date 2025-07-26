@@ -4,14 +4,16 @@ import { Calendar } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
+interface Brand {
+  name: string
+  mentions: number
+  topics: number
+  enriched: boolean
+  lastUpdated: string
+}
+
 interface BrandsTableProps {
-  brandData: Array<{
-    name: string
-    mentions: number
-    topics: number
-    enriched: boolean
-    lastUpdated: string
-  }>
+  brandData: Brand[]
   currentPage: number
   rowsPerPage: number
 }
@@ -20,6 +22,16 @@ export function BrandsTable({ brandData, currentPage, rowsPerPage }: BrandsTable
   const startIndex = (currentPage - 1) * rowsPerPage
   const endIndex = startIndex + rowsPerPage
   const currentData = brandData.slice(startIndex, endIndex)
+
+  if (currentData.length === 0) {
+    return (
+      <div className="border border-[#3d3d3f] rounded-lg overflow-hidden">
+        <div className="p-8 text-center">
+          <p className="text-gray-400">No brands found matching your search criteria.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="border border-[#3d3d3f] rounded-lg overflow-hidden">

@@ -1,6 +1,11 @@
 import { FilterButtons } from "./filter-buttons"
 
-export function Header() {
+interface HeaderProps {
+  activeFilter: string
+  onFilterChange: (filter: string) => void
+}
+
+export function Header({ activeFilter, onFilterChange }: HeaderProps) {
   return (
     <header className="bg-[#151517] p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
@@ -13,7 +18,7 @@ export function Header() {
 
       <p className="text-white text-sm">Marketing copy to be inserted here.</p>
 
-      <FilterButtons />
+      <FilterButtons activeFilter={activeFilter} onFilterChange={onFilterChange} />
     </header>
   )
 }

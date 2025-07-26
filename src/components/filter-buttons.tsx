@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { Building2, ListFilter, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -10,9 +9,12 @@ const filters = [
   { id: "prompts", label: "All Prompts", icon: MessageSquare, color: "#b59fbc" },
 ]
 
-export function FilterButtons() {
-  const [activeFilter, setActiveFilter] = useState("brands")
+interface FilterButtonsProps {
+  activeFilter: string
+  onFilterChange: (filter: string) => void
+}
 
+export function FilterButtons({ activeFilter, onFilterChange }: FilterButtonsProps) {
   return (
     <div className="flex flex-wrap gap-2 sm:gap-4">
       {filters.map((filter) => {
@@ -23,7 +25,7 @@ export function FilterButtons() {
           <Button
             key={filter.id}
             variant="ghost"
-            onClick={() => setActiveFilter(filter.id)}
+            onClick={() => onFilterChange(filter.id)}
             className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded text-sm font-medium transition-colors cursor-pointer ${
               isActive
                 ? "bg-white text-black hover:bg-white"
